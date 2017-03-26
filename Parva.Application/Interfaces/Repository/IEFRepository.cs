@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Parva.Infrastructure
+namespace Parva.Application.Interfaces.Repository
 {
-    public class Class1
+    interface IEFRepository
     {
     }
 }

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>3d3431d9-58ad-4143-84a5-d0356d182e1e</ProjectGuid>
+    <ProjectGuid>{3D3431D9-58AD-4143-84A5-D0356D182E1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Parva.Application</RootNamespace>
@@ -30,22 +30,61 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AppEngine.cs" />
+    <Compile Include="AppRegistry.cs" />
+    <Compile Include="Core\BaseService.cs" />
+    <Compile Include="Core\CommonService.cs" />
+    <Compile Include="Core\IBaseService.cs" />
+    <Compile Include="Core\ICommonService.cs" />
+    <Compile Include="Core\IoC\IIoCContainer.cs" />
+    <Compile Include="Core\IoC\IIoCRegistry.cs" />
+    <Compile Include="Core\IoC\Lifecycle.cs" />
+    <Compile Include="Core\ServiceResponse.cs" />
+    <Compile Include="Interfaces\Caching\ICacheManager.cs" />
+    <Compile Include="Interfaces\Encryption\IEncryptionService.cs" />
+    <Compile Include="Interfaces\Logging\ILogger.cs" />
+    <Compile Include="Interfaces\Repository\IEFRepository.cs" />
+    <Compile Include="Interfaces\Repository\IRepository.cs" />
+    <Compile Include="Interfaces\Repository\ISystemData.cs" />
+    <Compile Include="Interfaces\Repository\ISystemDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\AccountService.cs" />
+    <Compile Include="Services\Account\IAccountService.cs" />
+    <Compile Include="Services\District\DistrictService.cs" />
+    <Compile Include="Services\District\IDistrictService.cs" />
+    <Compile Include="Services\Seed\BlogSeedService.cs" />
+    <Compile Include="Services\Seed\DefaultSeedService.cs" />
+    <Compile Include="Services\Seed\ISeedService.cs" />
+    <Compile Include="Services\TreeService\ITreeService.cs" />
+    <Compile Include="Services\TreeService\TreeService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Parva.Domain\Parva.Domain.csproj">
+      <Project>{275d4542-0b01-473e-a222-7d6ab16546d6}</Project>
+      <Name>Parva.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -55,5 +94,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

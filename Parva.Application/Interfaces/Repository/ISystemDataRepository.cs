@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Parva.Application
+namespace Parva.Application.Interfaces.Repository
 {
-    public class Class1
+    interface ISystemDataRepository
     {
     }
 }
