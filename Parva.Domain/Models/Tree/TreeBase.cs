@@ -17,14 +17,13 @@ namespace Parva.Domain.Models
         public int Level { set; get; }   
         public byte[] RowVersion { get; set; }
 
-
-       // public int ModifyStauts;
+       
 
         /// <summary>
         /// Only copy node value but did not copy the node relation(the Id ,Parent and child ).
         /// </summary>
         /// <param name="t">Value to copy</param>
-        public virtual void CopyNodeValue(TreeBase<T> t)
+        public virtual void CopyNodeValueTreeBase<N>(TreeBase<N> t) where N : TreeBase<N>
         {
             if (t == null) return;
 

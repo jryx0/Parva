@@ -6,7 +6,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 
-namespace Parva.Infrastructure.Implementations.Repository.EntityFramework.Mapping.BaseData
+namespace Parva.Infrastructure.Implementations.Repository.EntityFramework.Mapping 
 {
     public class BaseDataTypeMap : EntityTypeConfiguration<BaseDataType>
     {

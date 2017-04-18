@@ -46,16 +46,16 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net40\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.105.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Data.SQLite.EF6, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.104.0\lib\net40\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\System.Data.SQLite.EF6.1.0.105.0\lib\net40\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.104.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\System.Data.SQLite.Linq.1.0.105.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -100,19 +100,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Parva.Application\Parva.Application.csproj">
+    <ProjectReference Include="..\..\Parva.Application\Parva.Application.csproj">
       <Project>{d92da010-b498-49a5-97d5-3ea21fa8bffe}</Project>
       <Name>Parva.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Parva.Domain\Parva.Domain.csproj">
+    <ProjectReference Include="..\..\Parva.Domain\Parva.Domain.csproj">
       <Project>{94ecbbf5-3814-4721-8d99-a180c3a2bf48}</Project>
       <Name>Parva.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Parva.Infrastructure\Parva.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Parva.Infrastructure\Parva.Infrastructure.csproj">
       <Project>{8ADB732E-AB4C-435C-A181-F1441C3D9AFC}</Project>
       <Name>Parva.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Parva.Utility\Parva.Utility.csproj">
+    <ProjectReference Include="..\..\Parva.Utility\Parva.Utility.csproj">
       <Project>{27D06785-F5B8-4532-9FAB-ACF9E079A8FD}</Project>
       <Name>Parva.Utility</Name>
     </ProjectReference>
@@ -124,7 +124,9 @@
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.104.0\build\net40\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.105.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.105.0\build\net40\System.Data.SQLite.Core.targets'))" />
   </Target>
+  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.105.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.105.0\build\net40\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

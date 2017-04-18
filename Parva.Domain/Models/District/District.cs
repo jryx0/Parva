@@ -9,5 +9,9 @@ namespace Parva.Domain.Models
     {       
         public String IP { set; get; }
         public String RegionCode { set; get; }
+
+        public bool HasModified;
+        public District Original;
+
     }
 }

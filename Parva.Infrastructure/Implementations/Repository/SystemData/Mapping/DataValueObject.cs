@@ -9,7 +9,7 @@ using Parva.Domain.Core;
 
 namespace Parva.Infrastructure.Implementations.Repository.SystemData.Mapping
 {
-    public class DataValueObject : IBaseObject<DataValue>
+    public class DataValueObject : Application.Core.IBaseObject<DataValue>
     {
         public string DeleteSql
         {

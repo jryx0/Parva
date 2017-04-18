@@ -37,8 +37,8 @@ namespace BigData.JW
 
         private static void SyncDataBase()
         {
-            //    var repo = AppEngine.Container.GetInstance<IEFRepository<BaseDataType>>();
-            //    var bst = repo.FindById(1);
+            var repo = AppEngine.Container.GetInstance<IEFRepository<BaseDataType>>();
+            var bst = repo.FindById(1);
         }
     }
 }

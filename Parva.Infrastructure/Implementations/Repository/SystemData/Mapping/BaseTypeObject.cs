@@ -12,7 +12,7 @@ using Parva.Application;
 
 namespace Parva.Infrastructure.Implementations.Repository.SystemData.Mapping
 {
-    public class BaseTypeObject : IBaseObject<BaseDataType>
+    public class BaseTypeObject : Application.Core.IBaseObject<BaseDataType>
     {
         public string InsertSql
         {
@@ -143,70 +143,6 @@ namespace Parva.Infrastructure.Implementations.Repository.SystemData.Mapping
                    new SQLiteParameter("@Seq", Entity.Seq),
                    new SQLiteParameter("@Status", Entity.Status)
                };
-        }
-
-        //public IQueryable<BaseEntity> IncludeDetail(IQueryable<BaseDataType> entities, string name, Type _type)
-        //{
-        //    var service = AppEngine.Container.GetInstance(typeof(IBaseObjectService<>).MakeGenericType(_type));
-
-        //    if (name == "HaveValue")
-        //    {
-        //        var objectService = service as BaseObjectService<DataValue>;
-        //        var datalist = objectService.Find(entities);
-
-        //        entities.ToList().ForEach(x =>
-        //            {
-        //                var _v = datalist.Where(y => y.BaseDataTypeId == x.Id);
-        //                if (_v != null && _v.Count() > 0)
-        //                {
-        //                    x.HaveValue = _v.ToList();
-        //                    x.HaveValue.ForEach(y => y.DataParent = x);
-        //                }
-        //                else x.HaveValue = null;
-        //            });
-
-        //        return datalist;
-        //    }
-
-        //    return null;
-        //}
-
-        //public IQueryable<BaseEntity> IncludeDetail(BaseDataType entity, string name, Type _type)
-        //{
-        //    var service = AppEngine.Container.GetInstance(typeof(IBaseObjectService<>).MakeGenericType(_type));
-
-        //    if (name == "HaveValue")
-        //    {
-        //        var objectService = service as BaseObjectService<DataValue>;
-
-        //        entity.HaveValue = objectService.Find(x => x.BaseDataTypeId == entity.Id).ToList();
-        //        entity.HaveValue.ForEach(y => y.DataParent = entity);
-
-        //        return entity.HaveValue.AsQueryable();
-        //    }
-
-        //    return null;
-        //}
-
-        //public IQueryable<BaseEntity> IncludeDetail(string name, Type _type)
-        //{
-        //    var service = AppEngine.Container.GetInstance(typeof(IBaseObjectService<>).MakeGenericType(_type));
-
-        //    if (name == "HaveValue")
-        //    {
-        //        var objectService = service as BaseObjectService<DataValue>;
-        //        return objectService.Find(x => true);
-        //    }
-
-        //    return null;
-        //}
-
-        //public IQueryable<DataValue> IncludeDetail<DataValue>(string detailName)
-        //{
-        //    var dlist = IncludeDetail(detailName, typeof(DataValue));
-        //    return dlist == null ? null : dlist.Cast<DataValue>();
-        //}
-
-         
+        }        
     }
 }

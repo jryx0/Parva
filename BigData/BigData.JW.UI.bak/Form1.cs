@@ -1,7 +1,10 @@
 ﻿using Parva.Application;
 using Parva.Domain.Models;
+using Parva.Infrastructure.Implementations.Repository.SystemData;
 using Parva.Utility.WinForm;
+
 using System;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace BigData.JW
@@ -15,14 +18,20 @@ namespace BigData.JW
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //var repo = AppEngine.Container.GetInstance<IBaseObjectService<BaseDataType>>();
+            //MySqlite _sqlite = new MySqlite();
+            //SQLiteDataReader reader = _sqlite.ExecuteReader("Select * from district");
+            //while(reader.Read())
+            //{
+            //    var r = reader.GetInt32(0);
+            //}
 
-            //BaseDataType bdt = new BaseDataType();
 
-            //bdt.BaseTypeName = "test";
+            var dlg = AppEngine.Container.GetInstance<DistrictManager>();
+            if (dlg.ShowDialog() == DialogResult.Cancel)
+            {
 
-            //repo.Insert(bdt);
-
+            }
+             
         }
 
         private void button2_Click(object sender, EventArgs e)

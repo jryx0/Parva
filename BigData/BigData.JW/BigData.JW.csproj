@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B9C333D-B47D-41D2-9BF7-08E1C0D7F192}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BigData.JW</RootNamespace>
+    <AssemblyName>BigData.JW</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Models\CompareItem\CompareItem.cs" />
+    <Compile Include="Domain\Models\CompareItem\ItemFormat.cs" />
+    <Compile Include="Domain\Models\CompareRules\CompareRule.cs" />
+    <Compile Include="Domain\Models\CompareRules\RuleDetail.cs" />
+    <Compile Include="Domain\Models\CompareRules\RuleParameter.cs" />
+    <Compile Include="Domain\Models\CompareRules\RuleTemplate.cs" />
+    <Compile Include="Domain\Models\CompareRules\TemplateDetail.cs" />
+    <Compile Include="Domain\Models\CompareTask\CompareTask.cs" />
+    <Compile Include="Infrastructure\Implementation\Repository\EntityFramework\Mappling\CompareItem\CompareItemMap.cs" />
+    <Compile Include="Infrastructure\Implementation\Repository\EntityFramework\Mappling\CompareRule\CompareRuleMap.cs" />
+    <Compile Include="Infrastructure\Implementation\Repository\EntityFramework\Mappling\CompareTask\CompareTaskMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Parva.Application\Parva.Application.csproj">
+      <Project>{d92da010-b498-49a5-97d5-3ea21fa8bffe}</Project>
+      <Name>Parva.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Parva.Domain\Parva.Domain.csproj">
+      <Project>{94ecbbf5-3814-4721-8d99-a180c3a2bf48}</Project>
+      <Name>Parva.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Parva.Infrastructure\Parva.Infrastructure.csproj">
+      <Project>{8adb732e-ab4c-435c-a181-f1441c3d9afc}</Project>
+      <Name>Parva.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Parva.Utility\Parva.Utility.csproj">
+      <Project>{27d06785-f5b8-4532-9fab-acf9e079a8fd}</Project>
+      <Name>Parva.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

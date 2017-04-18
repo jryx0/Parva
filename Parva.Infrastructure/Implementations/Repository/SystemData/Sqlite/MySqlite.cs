@@ -318,12 +318,11 @@ namespace Parva.Infrastructure.Implementations.Repository.SystemData
             try
             {
                 this.InitSqliteDB();
-               
-                    return SqlHelperDB.ExecuteReader(this.sqliteConn, commandType, commandText);
+                return SqlHelperDB.ExecuteReader(this.sqliteConn, commandType, commandText);
             }
             catch (Exception e)
             {
-              //  this.m_haserror = true;
+                //  this.m_haserror = true;
                 throw new System.Exception(e.Message, e.InnerException);
             }
         }
