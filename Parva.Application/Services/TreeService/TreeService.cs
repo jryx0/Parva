@@ -66,7 +66,7 @@ namespace Parva.Application.Services.TreeService
             _treeService.BeginTrans();
             try
             {
-                _treeService.SaveChanges(savingList.Where(x => x.ModifyStatus == BaseEntityStatus.NewEntity).OrderBy(x => x.Seq));
+                _treeService.SaveChanges(savingList.Where(x => x.ModifyStatus == BaseEntityStatus.NewEntity).OrderBy(x => x.Level));
                 _treeService.SaveChanges(savingList.Where(x =>
                                                     x.ModifyStatus == BaseEntityStatus.Modefied
                                                     || x.ModifyStatus == BaseEntityStatus.Deleted));
@@ -75,6 +75,7 @@ namespace Parva.Application.Services.TreeService
             }
             catch (Exception ex)
             {
+                
                 _treeService.Rollback();
             }
         }

@@ -1,7 +1,13 @@
-﻿using System;
+﻿using Parva.Application;
+using Parva.Application.Core;
+using Parva.Application.Services.Account;
+using Parva.Domain.Models;
+using Parva.Infrastructure.Implementations.Repository.SystemData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,12 +15,12 @@ using System.Windows.Forms;
 
 namespace BigData.JW.Startup
 {
-    public partial class Form1 : Form
+    public partial class Login : Form
     {
         // the flag of validate
         private bool _ValidForm;
 
-        public Form1()
+        public Login()
         {
             InitializeComponent();
 
@@ -73,12 +79,15 @@ namespace BigData.JW.Startup
         {
             if (!_ValidForm)
             { 
-                MessageBox.Show("密码用户名不正确,请重新输入!");
+
+                MessageBox.Show("用户名或密码不能为空,请重新输入!");
                 return;
             }
 
-            
-
+            if (GlobalEnviroment.LocalLogin)
+                LocalStartup();
+            else
+                RemoteStartup();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -88,6 +97,7 @@ namespace BigData.JW.Startup
 
         private void tbPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
+            lbInfo.Text = "";
             if (e.KeyChar == System.Convert.ToChar(13))
             {
                 btnLogin_Click(null, null);
@@ -96,10 +106,47 @@ namespace BigData.JW.Startup
         }
         private void tbUserName_KeyPress(object sender, KeyPressEventArgs e)
         {
+            lbInfo.Text = "";
             if (e.KeyChar == System.Convert.ToChar(13))
             {
                 tbPassword.Focus();
                 e.Handled = true;
+            }
+        }
+   
+        private void LocalStartup()
+        {
+            var service = AppEngine.Container.GetInstance<UserService>();
+            var user = service.GetUserInfo(tbUserName.Text.ToLower(), tbPassword.Text);
+            if (user == null)
+            { 
+                lbInfo.Text = "用户名或密码错误";
+                return;
+            }
+
+            MainStartup();
+            this.Close();
+        }
+
+        private void RemoteStartup()
+        {
+            //remote
+            MainStartup();
+            this.Close();
+        }
+
+        private void MainStartup()
+        {
+            Process p = new Process();            
+            try
+            { 
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.FileName = "精准扶贫监督检查(大数据).exe";
+                p.Start();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
     }

@@ -22,7 +22,7 @@ namespace Parva.Infrastructure.Implementations.Repository.EntityFramework.Mappin
             this.Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             
             this.HasRequired(x => x.DataParent).WithMany(x => x.HaveValue).HasForeignKey(x => x.BaseDataTypeId).WillCascadeOnDelete(false);
-            //this.Property(p => p.BaseDataTypeId).HasColumnType("Integer");
+           // this.Property(p => p.BaseDataTypeId).HasColumnType("INTEGER");
         }
     }
 }

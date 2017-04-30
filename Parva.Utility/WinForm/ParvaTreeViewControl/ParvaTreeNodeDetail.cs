@@ -8,19 +8,25 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Parva.Domain.Models;
 
 namespace Parva.Utility.WinForm 
 {
     public partial class ParvaTreeNodeDetail : Form
-    {         
+    {
+        public TreeView parentView;
         public event EventHandler NodeDetailMsgEvent;
         public ParvaTreeNodeDetail()
         {
             if (!DesignMode)
                 InitializeComponent();
+            parentView = null;
         }
 
-        public virtual void NodeDetailMessageHandler(object sender, EventArgs e) { }
+        public virtual void NodeDetailMessageHandler(object sender, EventArgs e)
+        {
+            NodeDetailMsgEvent(sender, e);
+        }
 
         public virtual void SetData<T>(T data) { }
 
@@ -54,6 +60,26 @@ namespace Parva.Utility.WinForm
             return true;
         }
 
+        /// <summary>
+        /// 设置图标
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public virtual int ImgIndex<T>(T data)
+        {
+            return 0;
+        }
+
+        public virtual ContextMenuStrip GetMenu()
+        {
+            return null;
+        }
+
+        internal bool CanModifyNode<T>(T b) where T : TreeBase<T>, new()
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }

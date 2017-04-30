@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace BigData.JW.Startup
@@ -15,7 +13,9 @@ namespace BigData.JW.Startup
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            AppInit.BootStrap();
+            Application.Run(new Login());
         }
     }
 }

@@ -32,7 +32,8 @@ namespace Parva.Infrastructure.Implementations.Repository.SystemData
                 ConfigurationManager.ConnectionStrings["SqliteConnection"].ConnectionString
                 );
 
-             
+            sqliteConnectionString = ConfigurationManager.ConnectionStrings["SqliteConnection"].ConnectionString;
+
             isInit = false;
             isTrans = false;  
         }
@@ -108,7 +109,7 @@ namespace Parva.Infrastructure.Implementations.Repository.SystemData
                 {
                     if (sqliteConn.State == System.Data.ConnectionState.Closed)
                     {
-                        sqliteConnstrBuilder.DataSource = sqliteConnectionString;
+                        //sqliteConnstrBuilder.DataSource = sqliteConnectionString;
                         sqliteConn.ConnectionString = sqliteConnstrBuilder.ToString();
                         sqliteConn.SetPassword(sqlitePassword);
                         sqliteConn.Open();

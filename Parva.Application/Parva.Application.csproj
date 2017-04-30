@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="AppEngine.cs" />
     <Compile Include="AppRegistry.cs" />
-    <Compile Include="Core\Convertor.cs" />
     <Compile Include="Core\EFCommonService.cs" />
     <Compile Include="Core\IBaseObject.cs" />
     <Compile Include="Core\BaseObjectService.cs" />
@@ -55,6 +54,7 @@
     <Compile Include="Interfaces\Repository\IEFRepository.cs" />
     <Compile Include="Interfaces\Repository\ISystemDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account\UserService.cs" />
     <Compile Include="Services\BaseData\BaseDataTypeService.cs" />
     <Compile Include="Services\District\DistrictService.cs" />
     <Compile Include="Services\District\IDistrictService.cs" />

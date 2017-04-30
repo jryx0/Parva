@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("BigData.JW.WebServcies")]
+[assembly: AssemblyTitle("BigData.JW.UI.WinForm")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BigData.JW.WebServcies")]
+[assembly: AssemblyProduct("BigData.JW.UI.WinForm")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("5d019f12-8b90-4a0e-a66f-de8ca9d37ee8")]
+[assembly: Guid("906cffc0-924e-4d1b-85b7-f6c1d0436384")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

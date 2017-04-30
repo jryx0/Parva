@@ -18,10 +18,7 @@ namespace Parva.Infrastructure.Implementations.Repository
 
             AppEngine.Container.Resgister(typeof(Application.Core.IBaseObject<BaseDataType>), typeof(BaseTypeObject));
             AppEngine.Container.Resgister(typeof(Application.Core.IBaseObject<DataValue>), typeof(DataValueObject));
-
             AppEngine.Container.Resgister(typeof(Application.Core.IBaseObject<District>), typeof(DistrictObject));
-
-
         }
     }
 }

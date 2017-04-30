@@ -200,6 +200,10 @@ namespace Parva.Utility.Tools
             }
         }
 
+        public static DataTable CopyToDT<T>(this IEnumerable<T> source)
+        {
+            return new ObjectShredder<T>().Shred(source.AsQueryable(), null, null);
+        }
 
         public static DataTable CopyToDT<T>(this IQueryable<T> source)
         {

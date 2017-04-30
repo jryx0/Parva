@@ -31,17 +31,20 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ptreeView = new System.Windows.Forms.TreeView();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.cmsTreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.NewNode_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DelAccount_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.cmsTreeMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -49,8 +52,13 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.ptreeView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitter1);
             this.splitContainer1.Size = new System.Drawing.Size(633, 446);
             this.splitContainer1.SplitterDistance = 221;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             // 
             // ptreeView
@@ -67,6 +75,14 @@
             this.ptreeView.Leave += new System.EventHandler(this.ptreeView_Leave);
             this.ptreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ptreeView_MouseUp);
             // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 446);
+            this.splitter1.TabIndex = 0;
+            this.splitter1.TabStop = false;
+            // 
             // cmsTreeMenu
             // 
             this.cmsTreeMenu.ImageScalingSize = new System.Drawing.Size(18, 18);
@@ -74,19 +90,19 @@
             this.NewNode_ToolStripMenuItem,
             this.DelAccount_ToolStripMenuItem});
             this.cmsTreeMenu.Name = "contextMenuStrip1";
-            this.cmsTreeMenu.Size = new System.Drawing.Size(166, 76);
+            this.cmsTreeMenu.Size = new System.Drawing.Size(106, 52);
             // 
             // NewNode_ToolStripMenuItem
             // 
             this.NewNode_ToolStripMenuItem.Name = "NewNode_ToolStripMenuItem";
-            this.NewNode_ToolStripMenuItem.Size = new System.Drawing.Size(165, 24);
+            this.NewNode_ToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
             this.NewNode_ToolStripMenuItem.Text = "新增";
             this.NewNode_ToolStripMenuItem.Click += new System.EventHandler(this.NewNode_ToolStripMenuItem_Click);
             // 
             // DelAccount_ToolStripMenuItem
             // 
             this.DelAccount_ToolStripMenuItem.Name = "DelAccount_ToolStripMenuItem";
-            this.DelAccount_ToolStripMenuItem.Size = new System.Drawing.Size(165, 24);
+            this.DelAccount_ToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
             this.DelAccount_ToolStripMenuItem.Text = "删除";
             this.DelAccount_ToolStripMenuItem.Click += new System.EventHandler(this.DelAccount_ToolStripMenuItem_Click);
             // 
@@ -99,6 +115,7 @@
             this.Name = "ParvaTreeViewControl";
             this.Size = new System.Drawing.Size(633, 446);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.cmsTreeMenu.ResumeLayout(false);
@@ -113,5 +130,6 @@
         private System.Windows.Forms.ContextMenuStrip cmsTreeMenu;
         private System.Windows.Forms.ToolStripMenuItem NewNode_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DelAccount_ToolStripMenuItem;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }

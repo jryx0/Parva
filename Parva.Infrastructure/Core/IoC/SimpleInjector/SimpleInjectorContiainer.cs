@@ -6,16 +6,18 @@ using System.Text;
 using SimpleInjector;
 using System.Linq.Expressions;
 using SimpleInjector.Lifestyles;
+using System.Reflection;
 
 namespace Parva.Infrastructure.Core.IoC
 {
     public class SimpleInjectorContiainer : IIoCContainer
     {        
         private SimpleInjector.Container _container;
+      
 
         public SimpleInjectorContiainer()
         {
-            _container = new SimpleInjector.Container();
+            _container = new SimpleInjector.Container();          
 
             _container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
 
@@ -65,7 +67,7 @@ namespace Parva.Infrastructure.Core.IoC
             Resgister(typeof(IIoCContainer), this, Lifecycle.Singleton);
 
             var asslist = AppDomain.CurrentDomain.GetAssemblies();
-
+            
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 var types = assembly.GetTypes().Where(t => typeof(IIoCRegistry).IsAssignableFrom(t) && t.IsClass).ToList();
@@ -75,6 +77,8 @@ namespace Parva.Infrastructure.Core.IoC
                     register.Register();
                 }
             }
+
+           
 
             _container.Verify();
         }
@@ -93,5 +97,7 @@ namespace Parva.Infrastructure.Core.IoC
         {
             _container.Register<IService>(GetLifecyle(lifecycle));
         }
+
+       
     }
 }

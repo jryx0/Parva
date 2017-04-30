@@ -23,6 +23,10 @@ namespace BigData.JW.Infrastructure.Implementations.Repository.EntityFramework.M
                     ri.MapRightKey("RuleId");
                     ri.ToTable("ItemRule");
                 });
+
+            this.HasOptional<ItemFormat>(x => x.Format)
+                .WithRequired(x => x.ParentItem)
+                .Map(x => x.MapKey("ParentItemId"));  
         }
     }
 }

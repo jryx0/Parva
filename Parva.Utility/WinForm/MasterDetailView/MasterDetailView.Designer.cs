@@ -79,6 +79,7 @@
             this.dgvMaster.TabIndex = 0;
             this.dgvMaster.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMaster_CellEndEdit);
             this.dgvMaster.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvMaster_CellMouseClick);
+            this.dgvMaster.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvMaster_RowPostPaint);
             // 
             // tabDetail
             // 
@@ -135,18 +136,19 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Del_ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(103, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(106, 28);
             this.contextMenuStrip1.Text = "test";
             // 
             // Del_ToolStripMenuItem
             // 
             this.Del_ToolStripMenuItem.Name = "Del_ToolStripMenuItem";
-            this.Del_ToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.Del_ToolStripMenuItem.Size = new System.Drawing.Size(105, 24);
             this.Del_ToolStripMenuItem.Text = "删除";
             this.Del_ToolStripMenuItem.Click += new System.EventHandler(this.Del_ToolStripMenuItem_Click);
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(41, 487);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 34);

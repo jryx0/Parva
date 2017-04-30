@@ -16,6 +16,7 @@ namespace Parva.Application.Core.IoC
         void ResgisterAll(Type IService, Lifecycle lifecycle = Lifecycle.Transient);
 
         void Config();
+        
 
         object GetInstance(Type type);
         T GetInstance<T>() where T : class;

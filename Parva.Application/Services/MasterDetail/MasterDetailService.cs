@@ -104,7 +104,7 @@ namespace Parva.Application.Services.MasterDetail
 
         public abstract void IncludeDetail(IQueryable<T> entities, string detailName);
         public abstract void IncludeDetail(T entity, string detailName);         
-        public abstract IQueryable<TDetail> GetDetail<TDetail>(string detailName);
+        public abstract IQueryable<TDetail> GetDetail<TDetail>(string detailName) where TDetail : BaseEntity;
         protected abstract void SaveDetailChanges(List<T> changeList, string key);
 
         public virtual void SaveChanges(List<T> changeList)

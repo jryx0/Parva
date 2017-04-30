@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BigData.JW.WebServcies
+namespace Parva.Utility.WinForm.ParvaTreeControl
 {
-    public class Class1
-    {
-    }
+     
 }

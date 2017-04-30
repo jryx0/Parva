@@ -22,7 +22,7 @@ namespace Parva.Domain.Models
         public bool PhoneNumberConfirmed { get; set; }
 
         public bool LockoutEnabled { get; set; }
-        public int AccessFailedCount { get; set; }
+        public int? AccessFailedCount { get; set; }
 
         public DateTime? LockoutEndDateUtc { get; set; }
         public virtual ICollection<Role> Roles { get; set; }

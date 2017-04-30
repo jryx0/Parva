@@ -11,19 +11,11 @@ namespace BigData.JW.Models
     {
         public String Name { set; get; }
         public string Describle { set; get; }
-        public ItemType DetailType { set; get; }
+      
         public string Value { set; get; }
 
         public int? CompareRuleId { set; get; }
         public CompareRule Parent {set;get;}
-    }
-
-    public enum ItemType
-    {
-        Detail,
-        Summuay,
-        PreProcess,
-        Final
     }
 
 }

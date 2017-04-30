@@ -18,6 +18,8 @@ namespace Parva.Infrastructure.Implementations.Repository.EntityFramework.Mappin
             });
 
             this.Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+
         }
     }
 }

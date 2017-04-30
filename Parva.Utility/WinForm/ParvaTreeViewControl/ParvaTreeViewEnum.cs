@@ -9,8 +9,11 @@ namespace Parva.Utility.WinForm
     {         
         GetData,
         SetData,
-        LabelEdit,
+        LabelEdit,        
+        RightMouseClick,
         NewNode,
-        RightMouseClick
+        DeleteNode,
+        ModifyNode,
+        Operation
     }
 }

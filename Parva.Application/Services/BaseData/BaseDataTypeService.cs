@@ -39,16 +39,43 @@ namespace Parva.Application.Services
 
         public override void IncludeDetail(BaseDataType entity, string detailName)
         {
-            throw new NotImplementedException();
+            var service = AppEngine.Container.GetInstance(typeof(IBaseObjectService<>).MakeGenericType(_detailServices[detailName]));
+            var objectService = service as BaseObjectService<DataValue>;
+            var datavalueObject = AppEngine.Container.GetInstance<IBaseObject<DataValue>>();
+
+           
+            var reader = objectService._systemRepo.ExecuteReader(datavalueObject.SelectSql + " and BaseDataTypeId in ( " + entity.Id + ")");
+            entity.HaveValue = datavalueObject.Mapor(reader).ToList();
         }
 
         public override void IncludeDetail(IQueryable<BaseDataType> entities, string detailName)
         {
+            var service = AppEngine.Container.GetInstance(typeof(IBaseObjectService<>).MakeGenericType(_detailServices[detailName]));
+            var objectService = service as BaseObjectService<DataValue>;
+            var datavalueObject = AppEngine.Container.GetInstance<IBaseObject<DataValue>>();
+
+            
+            string wherein = String.Join(",", entities.ToList().Select(x => x.Id.ToString()));
+            var reader = objectService._systemRepo.ExecuteReader(datavalueObject.SelectSql + " and BaseDataTypeId in ( " + wherein + ")");
+            var dvlist = datavalueObject.Mapor(reader);
+
+            foreach(var bt in entities)
+            {
+                bt.HaveValue = dvlist.Where(x => x.BaseDataTypeId == bt.Id).ToList();
+            }
+            return;
+
             throw new NotImplementedException();
         }
 
-        public override IQueryable<TDetail> GetDetail<TDetail>(string detailName)
+        public override IQueryable<T> GetDetail<T>(string detailName)  
         {
+            var service = AppEngine.Container.GetInstance(typeof(IBaseObjectService<>).MakeGenericType(_detailServices[detailName]));
+            var objectService = service as BaseObjectService<T>;
+
+            return objectService.Find(x => true);
+            
+
             throw new NotImplementedException();
         }
 

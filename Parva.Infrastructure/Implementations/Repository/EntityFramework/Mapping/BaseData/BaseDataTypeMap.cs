@@ -21,7 +21,7 @@ namespace Parva.Infrastructure.Implementations.Repository.EntityFramework.Mappin
             this.Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             // this.HasMany(x => x.HaveValue).WithRequired(x => x.DataParent).HasForeignKey(x => x.BaseDataTypeId);
            // this.Property(x => x.Id).HasColumnType("int");
-            
+             
         }
     }
 }

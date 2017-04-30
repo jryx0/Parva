@@ -19,7 +19,7 @@ namespace Parva.Application.Services.MasterDetail
         IQueryable<TMaster> GetMaster(Expression<Func<TMaster, bool>> predict, bool bIncludeDetails = true); 
         void IncludeDetail(IQueryable<TMaster> entities, string detailName);
         void IncludeDetail(TMaster entity, string detailName);
-        IQueryable<TDetail> GetDetail<TDetail>(string detailName);
+        IQueryable<TDetail> GetDetail<TDetail>(string detailName) where TDetail : BaseEntity;
 
         DataTable GetMasterTable();
         DataTable GetDetailTable(string detailName);

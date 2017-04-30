@@ -21,10 +21,29 @@ namespace BigData.JW.Models
         public string Reserved1 { set; get; }
         public string Reserved2 { set; get; }
 
-        public string ItemShortName { set; get; }
-        public DateTime CreateTime { set; get; }
+        public ItemType DataType { set; get; }
+        //Name = ShortName
+      //  public string ItemShortName { set; get; }
+        public DateTime LastModifiedDate { set; get; }
 
-        public virtual List<CompareRule>  Rules { set; get; }
-        public virtual List<ItemFormat> Formats { set; get; }
+        public virtual List<CompareRule> Rules { set; get; }
+        public ItemFormat Format { set; get; }
+
+
+        public bool HasModified;
+        public CompareItem Original;
+    }
+
+
+    public enum ItemType
+    {
+        Root = 0,
+        Source,
+        Compare,
+        Item,
+        Folder,
+        Data,
+        SourceItem, //文件
+        CompareItem //文件
     }
 }

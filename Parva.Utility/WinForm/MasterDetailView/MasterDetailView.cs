@@ -6,6 +6,7 @@ using Parva.Utility.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -122,6 +123,7 @@ namespace Parva.Utility.WinForm
             dgv.Location = new System.Drawing.Point(0, 0);
             dgv.Name = DetailName;
             dgv.DataSource = detailBindingSource;
+            dgv.RowPostPaint += dgvMaster_RowPostPaint;
 
             //保存GridView 和 Detail 对应关系
             _detailView[DetailName] = dgv;
@@ -268,6 +270,18 @@ namespace Parva.Utility.WinForm
             InitPageView();
 
             this.Cursor = Cursors.Arrow;
+        }
+
+        private void dgvMaster_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var dgv = sender as DataGridView;
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X, e.RowBounds.Location.Y, dgv.RowHeadersWidth - 4, e.RowBounds.Height);
+
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
+                dgv.RowHeadersDefaultCellStyle.Font,
+                rectangle,
+                dgv.RowHeadersDefaultCellStyle.ForeColor,
+                TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
     }
 }
