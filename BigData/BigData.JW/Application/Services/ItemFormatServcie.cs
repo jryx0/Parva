@@ -9,11 +9,10 @@ using System.Data;
 
 namespace BigData.JW.Services
 {
-    public class CompareItemFormatServcie : MasterDetailService<CompareItem>
+    public class ItemFormatServcie : MasterDetailService<ItemFormat>
     {
-        public CompareItemFormatServcie(IBaseObjectService<CompareItem> masterService) : base(masterService)
+        public ItemFormatServcie(IBaseObjectService<ItemFormat> masterService) : base(masterService)
         {
-
         }
 
         public override IQueryable<TDetail> GetDetail<TDetail>(string detailName)
@@ -26,17 +25,17 @@ namespace BigData.JW.Services
             throw new NotImplementedException();
         }
 
-        public override void IncludeDetail(CompareItem entity, string detailName)
+        public override void IncludeDetail(ItemFormat entity, string detailName)
         {
             throw new NotImplementedException();
         }
 
-        public override void IncludeDetail(IQueryable<CompareItem> entities, string detailName)
+        public override void IncludeDetail(IQueryable<ItemFormat> entities, string detailName)
         {
             throw new NotImplementedException();
         }
 
-        protected override void SaveDetailChanges(List<CompareItem> changeList, string key)
+        protected override void SaveDetailChanges(List<ItemFormat> changeList, string key)
         {
             throw new NotImplementedException();
         }

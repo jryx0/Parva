@@ -10,7 +10,7 @@ namespace Parva.Application.Core
 {
     public class BaseObjectService<T> : IBaseObjectService<T> where T : BaseEntity
     {
-        private IBaseObject<T> _baseObject;
+        public IBaseObject<T> _baseObject;
         public ISystemDataRepository _systemRepo { set; get; }
 
         public string Name
@@ -43,6 +43,21 @@ namespace Parva.Application.Core
         public void Rollback()
         {
             this._systemRepo.Rollback();
+        }
+
+        public IQueryable<T> FindByParentId(IQueryable<int> Ids )
+        {
+            var sql = _baseObject.SelectSql;
+            var inset = "";
+            foreach (var id in Ids)
+            {
+                inset += id + ",";
+            }
+
+            sql += " and ParentId in (" + inset.TrimEnd(',') + ")";
+            var reader = _systemRepo.ExecuteReader(sql);
+
+            return _baseObject.Mapor(reader);
         }
 
         public IQueryable<T> Find(IQueryable<BaseEntity> entities)
@@ -168,5 +183,7 @@ namespace Parva.Application.Core
             ds.Tables[0].TableName = this.Name;
             return ds.Tables[0];
         }
+
+        
     }
 }

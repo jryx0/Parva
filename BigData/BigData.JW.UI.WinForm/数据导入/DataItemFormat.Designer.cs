@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnDel = new System.Windows.Forms.Button();
             this.btnPreView = new System.Windows.Forms.Button();
             this.tbStartPos = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -68,7 +68,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnSave);
+            this.splitContainer1.Panel1.Controls.Add(this.btnDel);
             this.splitContainer1.Panel1.Controls.Add(this.btnPreView);
             this.splitContainer1.Panel1.Controls.Add(this.tbStartPos);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
@@ -83,16 +83,16 @@
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 0;
             // 
-            // btnSave
+            // btnDel
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(592, 152);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(93, 29);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "保存";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDel.Location = new System.Drawing.Point(592, 152);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(93, 29);
+            this.btnDel.TabIndex = 4;
+            this.btnDel.Text = "清除格式";
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnPreView
             // 
@@ -110,7 +110,7 @@
             this.tbStartPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStartPos.Location = new System.Drawing.Point(609, 25);
             this.tbStartPos.Name = "tbStartPos";
-            this.tbStartPos.Size = new System.Drawing.Size(53, 27);
+            this.tbStartPos.Size = new System.Drawing.Size(53, 30);
             this.tbStartPos.TabIndex = 2;
             this.tbStartPos.TextChanged += new System.EventHandler(this.tbStartPos_TextChanged);
             this.tbStartPos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
@@ -121,7 +121,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(668, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 21);
+            this.label3.Size = new System.Drawing.Size(61, 23);
             this.label3.TabIndex = 1;
             this.label3.Text = "行开始";
             // 
@@ -131,7 +131,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(557, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 21);
+            this.label1.Size = new System.Drawing.Size(48, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "从第:";
             // 
@@ -213,10 +213,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dgvPreView);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(722, 192);
+            this.tabPage1.Size = new System.Drawing.Size(722, 189);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "预览";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -231,16 +231,16 @@
             this.dgvPreView.Name = "dgvPreView";
             this.dgvPreView.ReadOnly = true;
             this.dgvPreView.RowTemplate.Height = 24;
-            this.dgvPreView.Size = new System.Drawing.Size(716, 186);
+            this.dgvPreView.Size = new System.Drawing.Size(716, 183);
             this.dgvPreView.TabIndex = 0;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dgvOriginalView);
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(722, 198);
+            this.tabPage2.Size = new System.Drawing.Size(722, 196);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "原始文件";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -255,12 +255,12 @@
             this.dgvOriginalView.Name = "dgvOriginalView";
             this.dgvOriginalView.ReadOnly = true;
             this.dgvOriginalView.RowTemplate.Height = 24;
-            this.dgvOriginalView.Size = new System.Drawing.Size(716, 192);
+            this.dgvOriginalView.Size = new System.Drawing.Size(716, 190);
             this.dgvOriginalView.TabIndex = 0;
             // 
             // DataItemFormat
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(730, 445);
             this.Controls.Add(this.splitContainer1);
@@ -295,7 +295,7 @@
         private System.Windows.Forms.DataGridView dgvPreView;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dgvOriginalView;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnTypeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnValue;

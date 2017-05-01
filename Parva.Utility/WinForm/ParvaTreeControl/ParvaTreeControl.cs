@@ -481,14 +481,11 @@ namespace Parva.Utility.WinForm
             ModifiedNode.Clear();
         }   
         public void SaveChanges()
-        {            
+        {
+            if (!_currentNodeDetail.SaveChanges())
+                return;
+ 
             this.parvaTreeService.SaveChanges(GetModifiedData().AsQueryable());
-
-            foreach(var p in _treeNodeDetails)
-            {                
-               // p.Value.SaveChanges(p.Value.GetModifiedData(this));
-            }
-
             AcceptChange();
         }
     }

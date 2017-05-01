@@ -52,7 +52,16 @@ namespace Parva.Utility.WinForm
         /// <returns></returns>
         public virtual bool SaveChanges(List<T> ChangeList)
         {
-            return false;
+            return true;
+        }
+
+        /// <summary>
+        /// 保存修改
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool SaveChanges( )
+        {
+            return true;
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace Parva.Application
     {
         public void Register()
         {
-            AppEngine.Container.Resgister(typeof(IBaseObjectService<BaseDataType>), typeof(BaseObjectService<BaseDataType>));
+            AppEngine.Container.Resgister(typeof(IBaseObjectService<BaseDataType>), typeof(BaseObjectService<BaseDataType>) );
             AppEngine.Container.Resgister(typeof(IBaseObjectService<DataValue>), typeof(BaseObjectService<DataValue>));
             AppEngine.Container.Resgister(typeof(IMasterDetailService<BaseDataType>), typeof(BaseDataTypeService));
 

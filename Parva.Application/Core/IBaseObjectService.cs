@@ -14,10 +14,12 @@ namespace Parva.Application.Core
         void Insert(T entity);
         T FindById(int id);
 
+
         string Name { set; get; }
         
         IQueryable<T> Find(Expression<Func<T, bool>> predict);
         IQueryable<T> Find(IQueryable<BaseEntity> entities);
+        IQueryable<T> FindByParentId(IQueryable<int> Ids );
 
         void Remove(int id);
         void Remove(T entity);

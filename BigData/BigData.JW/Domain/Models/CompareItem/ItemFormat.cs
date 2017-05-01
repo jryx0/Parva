@@ -9,8 +9,8 @@ namespace BigData.JW.Models
 {
     public class ItemDataFormat :  RowVersionEntity        
     {
-        public int? FormatId { set; get; }
-        public ItemFormat  Format { set; get; }
+        public int? ParentId { set; get; }
+        public ItemFormat  Parent { set; get; }
 
         public int? ColInfoId { set; get; }
         public DataValue ColInfo { set; get; }        

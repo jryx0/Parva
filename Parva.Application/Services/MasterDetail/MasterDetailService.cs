@@ -87,9 +87,9 @@ namespace Parva.Application.Services.MasterDetail
         {
             var _masterlist = _masterService.Find(x => predict.Compile().Invoke(x)).OrderBy(x => x.Seq);
 
-            if (bIncludeDetails)
+            if (bIncludeDetails && _detailServices!= null)
                 foreach (var d in _detailServices)
-                {
+                {                    
                     IncludeDetail(_masterlist, d.Key);
                 }
 
@@ -134,108 +134,5 @@ namespace Parva.Application.Services.MasterDetail
         }
 
       
-    }
-
-    /*
-#region IQueryable
-public IQueryable<T> GetMaster(bool bIncludeDetail = true)
-{
-    return GetMaster(x => true, bIncludeDetail);
-}
-
-public IQueryable<T> GetMaster(Expression<Func<T, bool>> predict, bool bIncludeDetail = true)
-{
-    var _masterlist = _masterService.Find(x =>  predict.Compile().Invoke(x)).OrderBy(x => x.Seq);
-
-    if (bIncludeDetail)
-        foreach (var d in _detailServices)
-        {
-            _masterService.IncludeDetail(_masterlist, d.Key, d.Value);
-        }
-
-    return _masterlist;
-}
-
-public IQueryable<TDetail> GetDetail<TDetail>(string _name) where TDetail : BaseEntity
-{
-    IQueryable<TDetail> detail = null;
-
-    return detail;
-}
-
-
-public object GetDetail(Type _type)
-{
-    throw new NotImplementedException();
-}
-
-public object[] GetDetail()
-{
-    throw new NotImplementedException();
-}
-
-public object[] GetDetail(Expression<Func<T, bool>> predict)
-{
-    throw new NotImplementedException();
-}
-
-public List<T> MapMaster(DataRowCollection rows)
-{
-    throw new NotImplementedException();
-}
-
-public List<object> MapDetail(Type _type, DataRowCollection rows)
-{
-    throw new NotImplementedException();
-}
-
-public Dictionary<string, Type> GetDetailInfo()
-{
-    return _detailServices;
-}
-#endregion
-
-#region DataSet
-public DataTable GetMasterDS(bool bIncludeDetails = true)
-{
-    return GetMasterDS(x => true, bIncludeDetails);
-}
-
-public DataTable GetMasterDS(Expression<Func<T, bool>> predict, bool bIncludeDetails = true)
-{
-
-    //DataTable masterdt = _masterService.Find(x => predict.Compile().Invoke(x))
-
-
-    //masterds.Tables[0].TableName = typeof(T).GetType().Name;
-    //if (bIncludeDetails)
-    //    foreach (var d in _detailServices)
-    //    {  
-    //        masterds.Tables.Add(GetDetailDS(d.Key));
-
-    //        // Establish a relationship between the two tables.
-    //        DataRelation relation = new DataRelation(typeof(T).GetType().Name + d.Key,
-    //            masterds.Tables[typeof(T).GetType().Name].Columns["Id"],
-    //            masterds.Tables[d.Key].Columns["Id"]);
-    //        masterds.Relations.Add(relation);
-    //    }
-
-    //return masterds;
-    throw new NotImplementedException();
-}
-
-public DataTable GetDetailDS(string DetailName)
-{
-    //if (_detailServices.Keys.Contains(DetailName))
-    //    _masterService.IncludeDetail();
-
-    throw new NotImplementedException();
-}
-
-public DataTable GetDetailDS(string DetailName,Expression<Func<T, bool>> predict)
-{
-    throw new NotImplementedException();
-}
-#endregion
-*/
+    } 
 }

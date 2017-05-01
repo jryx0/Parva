@@ -67,7 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInit.cs" />
-    <Compile Include="Application\Services\CompareItemFormatServcie.cs" />
+    <Compile Include="Application\Services\BigDataMasterDetailService.cs" />
+    <Compile Include="Application\Services\ItemFormatServcie.cs" />
     <Compile Include="AppRegistry.cs" />
     <Compile Include="Domain\Models\CompareItem\CompareItem.cs" />
     <Compile Include="Domain\Models\CompareItem\ItemFormat.cs" />

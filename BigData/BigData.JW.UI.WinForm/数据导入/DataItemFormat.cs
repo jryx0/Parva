@@ -22,10 +22,12 @@ namespace BigData.JW.UI.WinForm
 {
     public partial class DataItemFormat : ParvaNodeDetail<CompareItem>
     {
-        private IBaseObjectService<ItemFormat> _formatService;
+        private ItemFormatServcie _formatService;
         private String _preFileName;
         private BaseDataType _basedatatype;
         private List<int> SelectedIndexList;
+
+        private  BigDataMasterDetailService<ItemFormat, ItemDataFormat> _testformateService;
 
         private ItemFormat _currentFormat;
 
@@ -34,8 +36,13 @@ namespace BigData.JW.UI.WinForm
             InitializeComponent();
             _preFileName = String.Empty;
 
-            _formatService = AppEngine.Container.GetInstance<BaseObjectService<ItemFormat>>();
+            _formatService = AppEngine.Container.GetInstance<ItemFormatServcie>();
             SelectedIndexList = new List<int>();
+
+
+            _testformateService = AppEngine.Container.GetInstance<BigDataMasterDetailService<ItemFormat, ItemDataFormat>>();
+            _testformateService.Find(null, x => x.DataFormats.AsQueryable(), y => y.ParentId);
+
         }
 
         public override void InitNodeDetail(CompareItem tag)
@@ -67,14 +74,14 @@ namespace BigData.JW.UI.WinForm
             _currentFormat = argData.Format;
             if (_currentFormat == null)
             {//读数据库
-                _currentFormat = _formatService.Find(x => x.ParentId == argData.Id)?.FirstOrDefault();
+                _currentFormat = _formatService.GetMaster(x => x.ParentId == argData.Id)?.FirstOrDefault();
                 _currentDetail.Format = _currentFormat;
             }
 
-            dgvFormat.DataSource = null;
-            tbStartPos.Text = "";
+            if (_currentFormat == null) return; //no Format    
 
-            if (_currentFormat == null) return; //no Format         
+            dgvFormat.DataSource = null;
+            tbStartPos.Text = "";                 
 
             _currentFormat.ParentItem = _currentDetail;
             _currentFormat.ParentId = _currentDetail.Id;
@@ -83,8 +90,8 @@ namespace BigData.JW.UI.WinForm
                                                     x.ColInfo = _basedatatype.HaveValue?
                                                                            .Where(y => y.Id == x.ColInfoId)
                                                                            .FirstOrDefault();
-                                                    x.FormatId = _currentFormat.Id;
-                                                    x.Format = _currentFormat;
+                                                    x.ParentId = _currentFormat.Id;
+                                                    x.Parent = _currentFormat;
                                                 });
             tbStartPos.Text = _currentFormat.StartPos.ToString();
 
@@ -97,7 +104,7 @@ namespace BigData.JW.UI.WinForm
                            值顺序 = df.ColInfo.Seq,     //值顺序
                            列顺序 = df.ColIndex,   //列顺序
                            dvid = df.ColInfo.Id,     //dataValue id
-                           FormatId = df.FormatId,   //
+                           FormatId = df.ParentId,   //
                        };
 
             dgvFormat.AutoGenerateColumns = false;
@@ -115,8 +122,6 @@ namespace BigData.JW.UI.WinForm
 
             SelectedIndexList.AddRange(list.Select(x => x.dvid));
         }
-
-
 
         public override bool SaveChanges(List<CompareItem> ChangeList)
         {
@@ -137,8 +142,8 @@ namespace BigData.JW.UI.WinForm
 
                                });
 
-            _formatService.SaveChanges(changlist);
-            return true;
+            //_formatService.SaveChanges(changlist);
+            return false;
         }
 
         public override bool SaveModify()
@@ -190,8 +195,8 @@ namespace BigData.JW.UI.WinForm
                                              BaseEntityStatus.Deleted 
                                              : BaseEntityStatus.Modefied;
 
-                idf.FormatId = _currentFormat.Id;
-                idf.Format = _currentFormat;
+                idf.ParentId = _currentFormat.Id;
+                idf.Parent = _currentFormat;
 
                 if (dr[5] != null && dr[5].GetType() != typeof(DBNull))
                     idf.ColInfoId = (int)dr[5];
@@ -431,20 +436,7 @@ namespace BigData.JW.UI.WinForm
         {
 
         }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            DataTable dt = (DataTable)dgvFormat.DataSource;
-            ItemFormat df = new ItemFormat();
-            foreach (DataRow pr in dt?.Rows)
-            {
-                if(pr.RowState == DataRowState.Modified)
-                {
-                    
-                }
-            }
-        }
-
+        
         private void btnPreView_Click(object sender, EventArgs e)
         {
 
@@ -454,6 +446,11 @@ namespace BigData.JW.UI.WinForm
         {
             if (_currentFormat != null)
                 this._currentFormat.ModifyStatus = BaseEntityStatus.Modefied;
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
