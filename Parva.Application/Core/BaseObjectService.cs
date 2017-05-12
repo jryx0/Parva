@@ -48,11 +48,14 @@ namespace Parva.Application.Core
         public IQueryable<T> FindByParentId(IQueryable<int> Ids )
         {
             var sql = _baseObject.SelectSql;
-            var inset = "";
+            var inset = String.Empty;
             foreach (var id in Ids)
             {
                 inset += id + ",";
             }
+
+            if (String.IsNullOrEmpty(inset))
+                return null; 
 
             sql += " and ParentId in (" + inset.TrimEnd(',') + ")";
             var reader = _systemRepo.ExecuteReader(sql);

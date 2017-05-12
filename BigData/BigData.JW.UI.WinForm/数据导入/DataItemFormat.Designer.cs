@@ -47,6 +47,8 @@
             this.dgvPreView = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgvOriginalView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,32 +63,29 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnDel);
-            this.splitContainer1.Panel1.Controls.Add(this.btnPreView);
-            this.splitContainer1.Panel1.Controls.Add(this.tbStartPos);
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.dgvFormat);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tcShowFile);
-            this.splitContainer1.Size = new System.Drawing.Size(730, 445);
-            this.splitContainer1.SplitterDistance = 214;
+            this.splitContainer1.Size = new System.Drawing.Size(786, 453);
+            this.splitContainer1.SplitterDistance = 217;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 0;
             // 
             // btnDel
             // 
-            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDel.Location = new System.Drawing.Point(592, 152);
+            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDel.Location = new System.Drawing.Point(307, 465);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(93, 29);
             this.btnDel.TabIndex = 4;
@@ -96,8 +95,8 @@
             // 
             // btnPreView
             // 
-            this.btnPreView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPreView.Location = new System.Drawing.Point(592, 98);
+            this.btnPreView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPreView.Location = new System.Drawing.Point(198, 465);
             this.btnPreView.Name = "btnPreView";
             this.btnPreView.Size = new System.Drawing.Size(93, 29);
             this.btnPreView.TabIndex = 3;
@@ -107,40 +106,37 @@
             // 
             // tbStartPos
             // 
-            this.tbStartPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStartPos.Location = new System.Drawing.Point(609, 25);
+            this.tbStartPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbStartPos.Location = new System.Drawing.Point(55, 466);
             this.tbStartPos.Name = "tbStartPos";
-            this.tbStartPos.Size = new System.Drawing.Size(53, 30);
+            this.tbStartPos.Size = new System.Drawing.Size(53, 25);
             this.tbStartPos.TabIndex = 2;
             this.tbStartPos.TextChanged += new System.EventHandler(this.tbStartPos_TextChanged);
             this.tbStartPos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(668, 28);
+            this.label3.Location = new System.Drawing.Point(114, 469);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 23);
+            this.label3.Size = new System.Drawing.Size(51, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "行开始";
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(557, 28);
+            this.label1.Location = new System.Drawing.Point(3, 469);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 23);
+            this.label1.Size = new System.Drawing.Size(40, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "从第:";
             // 
             // dgvFormat
             // 
             this.dgvFormat.AllowUserToOrderColumns = true;
-            this.dgvFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFormat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFormat.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnId,
@@ -150,10 +146,11 @@
             this.ColumnSeq,
             this.ColumnDataValueId,
             this.ColumnItemDataFormat});
+            this.dgvFormat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvFormat.Location = new System.Drawing.Point(0, 0);
             this.dgvFormat.Name = "dgvFormat";
             this.dgvFormat.RowTemplate.Height = 24;
-            this.dgvFormat.Size = new System.Drawing.Size(551, 211);
+            this.dgvFormat.Size = new System.Drawing.Size(786, 217);
             this.dgvFormat.TabIndex = 0;
             this.dgvFormat.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFormat_CellClick);
             this.dgvFormat.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFormat_CellContentClick);
@@ -207,16 +204,16 @@
             this.tcShowFile.Location = new System.Drawing.Point(0, 0);
             this.tcShowFile.Name = "tcShowFile";
             this.tcShowFile.SelectedIndex = 0;
-            this.tcShowFile.Size = new System.Drawing.Size(730, 225);
+            this.tcShowFile.Size = new System.Drawing.Size(786, 230);
             this.tcShowFile.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dgvPreView);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(722, 189);
+            this.tabPage1.Size = new System.Drawing.Size(778, 197);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "预览";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -231,16 +228,16 @@
             this.dgvPreView.Name = "dgvPreView";
             this.dgvPreView.ReadOnly = true;
             this.dgvPreView.RowTemplate.Height = 24;
-            this.dgvPreView.Size = new System.Drawing.Size(716, 183);
+            this.dgvPreView.Size = new System.Drawing.Size(772, 191);
             this.dgvPreView.TabIndex = 0;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dgvOriginalView);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(722, 196);
+            this.tabPage2.Size = new System.Drawing.Size(718, 199);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "原始文件";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -255,20 +252,46 @@
             this.dgvOriginalView.Name = "dgvOriginalView";
             this.dgvOriginalView.ReadOnly = true;
             this.dgvOriginalView.RowTemplate.Height = 24;
-            this.dgvOriginalView.Size = new System.Drawing.Size(716, 190);
+            this.dgvOriginalView.Size = new System.Drawing.Size(712, 193);
             this.dgvOriginalView.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(416, 465);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 29);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "保存格式";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(669, 465);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(67, 29);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "退出";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // DataItemFormat
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 445);
+            this.ClientSize = new System.Drawing.Size(786, 507);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tbStartPos);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnDel);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.btnPreView);
             this.Font = new System.Drawing.Font("微软雅黑", 10.18868F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "DataItemFormat";
             this.Text = "ItemFormat";
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -279,6 +302,7 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOriginalView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -303,5 +327,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSeq;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDataValueId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnItemDataFormat;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -20,7 +20,7 @@ namespace BigData.JW
 
             AppEngine.Container.Config();
             
-            SyncDataBase();
+            //SyncDataBase();
             GlobalEnviroment.InitEnviroment();
         }
 

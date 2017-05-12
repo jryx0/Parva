@@ -67,7 +67,7 @@ namespace BigData.JW.Infrastructure.Implementation.Repository.SystemData.Mapping
                                b.Id
                           FROM ItemFormat a
                                LEFT JOIN
-                               ItemDataFormat b ON b.FormatId == a.Id Where 1 = 1 ";
+                               ItemDataFormat b ON b.ParentId == a.Id Where 1 = 1 ";
             }
         }
 

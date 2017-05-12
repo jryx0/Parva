@@ -19,6 +19,12 @@ namespace BigData.JW
 
             AppEngine.Container.Resgister(typeof(IBaseObject<ItemFormat>), typeof(ItemFormatObject));
             AppEngine.Container.Resgister(typeof(IBaseObjectService<ItemFormat>), typeof(BaseObjectService<ItemFormat>));
+
+
+            AppEngine.Container.Resgister(typeof(IBaseObject<ItemDataFormat>), typeof(ItemDataFormatObject));
+            AppEngine.Container.Resgister(typeof(IBaseObjectService<ItemDataFormat>), typeof(BaseObjectService<ItemDataFormat>));
+
+            AppEngine.Container.Resgister(typeof(BigDataMasterDetailService<ItemFormat, ItemDataFormat>));
             
         }
     }

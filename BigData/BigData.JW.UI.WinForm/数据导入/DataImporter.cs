@@ -83,22 +83,13 @@ namespace BigData.JW.UI.WinForm
 
         private void btnItemFormat_Click(object sender, EventArgs e)
         {
-            if (_currentName == "displayData")
-            {
-                btnItemFormat.Text = "显示数据";
-                _currentName = "ItemFormat";
-                btnSave.Visible = true;
-            }
-            else
-            {
-                btnItemFormat.Text = "编辑格式";
-                _currentName = "displayData";
-                btnSave.Visible = false;
-            }
+            var formatdlg = AppEngine.Container.GetInstance<DataItemFormat>();
 
-            this.dataImpTreeView.RegisterDetailView("ItemFormat", new DataItemFormat());
-            this.dataImpTreeView.SwitchNodeDetail(_currentName);
-            this.dataImpTreeView.SetNodeDetail(_currentName, dataImpTreeView.GetCurrentData());
+            if (formatdlg != null)
+            {
+                formatdlg.ParentItem = this.dataImpTreeView.GetCurrentData();
+                formatdlg.ShowDialog();
+            }
         }
 
         private void btnItemEdit_Click(object sender, EventArgs e)

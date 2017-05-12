@@ -1,54 +1,45 @@
-﻿using BigData.JW.Services;
-using BigData.JW.Models;
+﻿using BigData.JW.Models;
+using BigData.JW.Services;
 using Parva.Application;
-using Parva.Application.Services.MasterDetail;
+using Parva.Application.Services;
+using Parva.Domain.Core;
+using Parva.Domain.Models;
+using Parva.Utility.Tools;
 using Parva.Utility.WinForm;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Parva.Application.Core;
-using Parva.Domain.Models;
-using Parva.Application.Services;
-using Parva.Domain.Core;
-using Parva.Utility.Tools;
 
-namespace BigData.JW.UI.WinForm 
+namespace BigData.JW.UI.WinForm
 {
-    public partial class DataItemFormat : ParvaNodeDetail<CompareItem>
-    {
-        private ItemFormatServcie _formatService;
+    public partial class DataItemFormat:Form
+
+    {      
         private String _preFileName;
-        private BaseDataType _basedatatype;
-        private List<int> SelectedIndexList;
-
-        private  BigDataMasterDetailService<ItemFormat, ItemDataFormat> _testformateService;
-
+        private BaseDataTypeService _basetypeService;       
+        private  BigDataMasterDetailService<ItemFormat, ItemDataFormat> _formatService;
         private ItemFormat _currentFormat;
+        private BaseDataType _basedatatype;
 
-        public DataItemFormat()
+        public CompareItem ParentItem { set;  get; }
+        public DataItemFormat(BigDataMasterDetailService<ItemFormat, ItemDataFormat> formatService, BaseDataTypeService basetypeService)
         {
             InitializeComponent();
-            _preFileName = String.Empty;
 
-            _formatService = AppEngine.Container.GetInstance<ItemFormatServcie>();
-            SelectedIndexList = new List<int>();
-
-
-            _testformateService = AppEngine.Container.GetInstance<BigDataMasterDetailService<ItemFormat, ItemDataFormat>>();
-            _testformateService.Find(null, x => x.DataFormats.AsQueryable(), y => y.ParentId);
-
+            _formatService = formatService;// AppEngine.Container.GetInstance<BigDataMasterDetailService<ItemFormat, ItemDataFormat>>();
+            _basetypeService = basetypeService;
         }
 
-        public override void InitNodeDetail(CompareItem tag)
+        protected override void OnLoad(EventArgs e)
         {
-            var bts = AppEngine.Container.GetInstance<BaseDataTypeService>();
-            _basedatatype = bts.GetMaster(x => x.Id == 1).FirstOrDefault();//数据格式
+            _currentFormat = new ItemFormat();
+            _preFileName = String.Empty;
+
+            _basedatatype = _basetypeService.GetMaster(x => x.Id == 1).FirstOrDefault();//数据格式
 
             ColumnTypeName.DataSource = _basedatatype.HaveValue;
             ColumnTypeName.ValueMember = "Id";
@@ -59,157 +50,208 @@ namespace BigData.JW.UI.WinForm
             ColumnId.Visible = false;
             ColumnDataValueId.Visible = false;
             ColumnDataValueId.Visible = false;
+            ColumnItemDataFormat.Visible = false;           
 
-
-            if (tag != null)
-                _currentFormat = _currentDetail.Format;
-            _currentDetail = tag;
+            if (ParentItem != null )
+            { 
+                if(ParentItem.Format == null)
+                {
+                    var format = _formatService.Find(x => x.ParentId == ParentItem.Id, x => x.DataFormats.AsQueryable(), x => x.ParentId)?.FirstOrDefault();
+                    if (format != null)
+                        ParentItem.Format = format;
+                }
+                SetData(ParentItem.Format);
+            }
+            base.OnLoad(e);
         }
 
-        public override void SetData(CompareItem argData)
+        private void SetData(ItemFormat iFormat)
         {
-            if (argData == null) return;
+            if (iFormat == null)
+                return;
 
-            _currentDetail = argData;
-            _currentFormat = argData.Format;
-            if (_currentFormat == null)
-            {//读数据库
-                _currentFormat = _formatService.GetMaster(x => x.ParentId == argData.Id)?.FirstOrDefault();
-                _currentDetail.Format = _currentFormat;
-            }
-
-            if (_currentFormat == null) return; //no Format    
-
-            dgvFormat.DataSource = null;
-            tbStartPos.Text = "";                 
-
-            _currentFormat.ParentItem = _currentDetail;
-            _currentFormat.ParentId = _currentDetail.Id;
-            _currentFormat.DataFormats?.ForEach(x =>
-                                                {
-                                                    x.ColInfo = _basedatatype.HaveValue?
-                                                                           .Where(y => y.Id == x.ColInfoId)
-                                                                           .FirstOrDefault();
-                                                    x.ParentId = _currentFormat.Id;
-                                                    x.Parent = _currentFormat;
-                                                });
+            _currentFormat = iFormat;            
             tbStartPos.Text = _currentFormat.StartPos.ToString();
+            if (_currentFormat.DataFormats == null) return;
 
-            var list = from df in _currentFormat.DataFormats
-                       select new
-                       {
-                           Id = df.Id,  //itemdataformat
-                           值 = df.ColInfo.Name, //值
-                           字段名 = df.ColInfo.Value, //字段名
-                           值顺序 = df.ColInfo.Seq,     //值顺序
-                           列顺序 = df.ColIndex,   //列顺序
-                           dvid = df.ColInfo.Id,     //dataValue id
-                           FormatId = df.ParentId,   //
-                       };
-
-            dgvFormat.AutoGenerateColumns = false;
-            dgvFormat.DataSource = list.CopyToDT();
-
-            ColumnId.DataPropertyName = "Id";
-            ColumnTypeName.DataPropertyName = "dvid";
-            ColumnValue.DataPropertyName = "字段名";
-            ColumnSeq.DataPropertyName = "值顺序";
-            ColumnColNumber.DataPropertyName = "列顺序";
-            ColumnDataValueId.DataPropertyName = "dvid";
-            ColumnItemDataFormat.DataPropertyName = "FormatId";
-
-
-
-            SelectedIndexList.AddRange(list.Select(x => x.dvid));
         }
 
-        public override bool SaveChanges(List<CompareItem> ChangeList)
-        {
-            // _formatService
-            List<CompareItem> treeList = this.ParentTreeView.Tag as List<CompareItem>;
+        /*
+                public override void InitNodeDetail(CompareItem tag)
+                {
+                    var bts = AppEngine.Container.GetInstance<BaseDataTypeService>();
+                    _basedatatype = bts.GetMaster(x => x.Id == 1).FirstOrDefault();//数据格式
 
-            var changlist = treeList.Select(x => x.Format).Where(x =>
+                    ColumnTypeName.DataSource = _basedatatype.HaveValue;
+                    ColumnTypeName.ValueMember = "Id";
+                    ColumnTypeName.DisplayMember = "Name";
+                    ColumnTypeName.Width = 150;
+                    ColumnValue.Width = 150;
+
+                    ColumnId.Visible = false;
+                    ColumnDataValueId.Visible = false;
+                    ColumnDataValueId.Visible = false;
+                    ColumnItemDataFormat.Visible = false;
+
+
+                    if (tag != null)
+                        _currentFormat = _currentDetail.Format;
+                    _currentDetail = tag;
+                }
+
+                public override void SetData(CompareItem argData)
+                {
+                    if (argData == null) return;
+
+                    _currentDetail = argData;
+                    _currentFormat = argData.Format;
+                    if (_currentFormat == null)
+                    {//读数据库
+                     // _currentFormat = _formatService.GetMaster(x => x.ParentId == argData.Id)?.FirstOrDefault();
+                        _currentFormat = _formatService.Find(x => x.ParentId == argData.Id, x => x.DataFormats.AsQueryable(), x => x.ParentId)?.FirstOrDefault();
+                        _currentDetail.Format = _currentFormat;
+                    }
+
+                    //clear  data
+                    ClearData();
+                    if (_currentFormat == null)
+                    { 
+                        _currentFormat = new ItemFormat(); ; //no Format 
+                        _currentFormat.ModifyStatus = BaseEntityStatus.Unchanged;   
+                    }
+
+                    dgvFormat.DataSource = null;
+                    tbStartPos.Text = "";                 
+
+                    _currentFormat.ParentItem = _currentDetail;
+                    _currentFormat.ParentId = _currentDetail.Id;
+                    if (_currentFormat.DataFormats == null)
+                        _currentFormat.DataFormats = new List<ItemDataFormat>();
+                    _currentFormat.DataFormats?.ForEach(x =>
+                                                        {
+                                                            x.ColInfo = _basedatatype.HaveValue?
+                                                                                   .Where(y => y.Id == x.ColInfoId)
+                                                                                   .FirstOrDefault();
+                                                            x.ParentId = _currentFormat.Id;
+                                                            x.Parent = _currentFormat;
+                                                        });
+                    tbStartPos.Text = _currentFormat.StartPos.ToString();
+
+                    var list = from df in _currentFormat.DataFormats
+                               select new
                                {
-                                   if (x.ModifyStatus != BaseEntityStatus.Unchanged)
-                                       return true;
-                                   else if (x.DataFormats != null)
-                                   {
-                                       var df = x.DataFormats.Find(y => y.ModifyStatus != BaseEntityStatus.Unchanged);
-                                       if (df != null)
-                                           return true;
-                                   }
-                                   return false;
+                                   Id = df.Id,  //itemdataformat
+                                   值 = df.ColInfo.Name, //值
+                                   字段名 = df.ColInfo.Value, //字段名
+                                   值顺序 = df.ColInfo.Seq,     //值顺序
+                                   列顺序 = df.ColIndex,   //列顺序
+                                   dvid = df.ColInfo.Id,     //dataValue id
+                                   FormatId = df.ParentId,   //
+                               };
 
-                               });
+                    dgvFormat.AutoGenerateColumns = false;
+                    dgvFormat.DataSource = list.CopyToDT();
 
-            //_formatService.SaveChanges(changlist);
-            return false;
-        }
+                    ColumnId.DataPropertyName = "Id";
+                    ColumnTypeName.DataPropertyName = "dvid";
+                    ColumnValue.DataPropertyName = "字段名";
+                    ColumnSeq.DataPropertyName = "值顺序";
+                    ColumnColNumber.DataPropertyName = "列顺序";
+                    ColumnDataValueId.DataPropertyName = "dvid";
+                    ColumnItemDataFormat.DataPropertyName = "FormatId";
 
-        public override bool SaveModify()
-        {
-            if (_currentFormat == null)
-            {
-                _currentFormat = new ItemFormat();
-                _currentFormat.ModifyStatus = Parva.Domain.Core.BaseEntityStatus.NewEntity;
-            }
+                    //SelectedIndexList.AddRange(list.Select(x => x.dvid));
+                }
 
-            if (_currentFormat.Original == null)
-            {
-                _currentFormat.Original = new ItemFormat();
-                _currentFormat.Original.Id = _currentFormat.Id;
-                _currentFormat.Original.ModifyStatus = _currentFormat.ModifyStatus;
-                _currentFormat.Original.ParentId = _currentFormat.ParentId;
-                _currentFormat.Original.Seq = _currentFormat.Seq;
-                _currentFormat.Original.StartPos = _currentFormat.StartPos;
-                _currentFormat.Original.Status = _currentFormat.Status;
-                _currentFormat.Original.ParentItem = _currentDetail;
-                _currentFormat.Original.DataFormats = new List<ItemDataFormat>();
+                public override bool SaveChanges(List<CompareItem> ChangeList)
+                {
+                    // _formatService
+                    List<CompareItem> treeList = this.ParentTreeView.Tag as List<CompareItem>;
 
-                if (_currentFormat.DataFormats != null)
-                    _currentFormat.Original.DataFormats.AddRange(_currentFormat.DataFormats);
-            }
+                    var changlist = treeList.Select(x => x.Format).Where(x =>
+                                       {
+                                           if (x.ModifyStatus != BaseEntityStatus.Unchanged)
+                                               return true;
+                                           else if (x.DataFormats != null)
+                                           {
+                                               var df = x.DataFormats.Find(y => y.ModifyStatus != BaseEntityStatus.Unchanged);
+                                               if (df != null)
+                                                   return true;
+                                           }
+                                           return false;
+                                       });
 
-            if (tbStartPos.Text.Length != 0)
-                _currentFormat.StartPos = int.Parse(tbStartPos.Text);
-            else _currentFormat.StartPos = 0;
+                    //_formatService.SaveChanges(changlist);
+                    return false;
+                }
 
-            DataTable dt = (DataTable)dgvFormat.DataSource;
-            if (dt == null)
-                return true;
+                public override bool SaveModify()
+                {
 
-            var drs = dt.GetChanges();
-            if (drs == null || drs.Rows == null) return true;
-            foreach (DataRow dr in drs?.Rows)
-            {   
-                _currentFormat.ParentItem = _currentDetail;
-                _currentFormat.ParentId = _currentDetail?.Id;
+                    if (_currentFormat == null)
+                    {
+                        _currentFormat = new ItemFormat();
+                        _currentFormat.ModifyStatus = Parva.Domain.Core.BaseEntityStatus.NewEntity;
+                        _currentDetail.Format = _currentFormat;
+                    }
+
+                    if (_currentFormat.Original == null)
+                    {
+                        _currentFormat.Original = new ItemFormat();
+                        _currentFormat.Original.Id = _currentFormat.Id;
+                        _currentFormat.Original.ModifyStatus = _currentFormat.ModifyStatus;
+                        _currentFormat.Original.ParentId = _currentFormat.ParentId;
+                        _currentFormat.Original.Seq = _currentFormat.Seq;
+                        _currentFormat.Original.StartPos = _currentFormat.StartPos;
+                        _currentFormat.Original.Status = _currentFormat.Status;
+                        _currentFormat.Original.ParentItem = _currentDetail;
+                        _currentFormat.Original.DataFormats = new List<ItemDataFormat>();
+
+                        if (_currentFormat.DataFormats != null)
+                            _currentFormat.Original.DataFormats.AddRange(_currentFormat.DataFormats);
+                    }
+
+                    if (tbStartPos.Text.Length != 0)
+                        _currentFormat.StartPos = int.Parse(tbStartPos.Text);
+                    else _currentFormat.StartPos = 0;
+
+                    DataTable dt = (DataTable)dgvFormat.DataSource;
+                    if (dt == null)
+                        return true;
+
+                    var drs = dt.GetChanges();
+                    if (drs == null || drs.Rows == null) return true;
+                    foreach (DataRow dr in drs?.Rows)
+                    {   
+                        _currentFormat.ParentItem = _currentDetail;
+                        _currentFormat.ParentId = _currentDetail?.Id;
 
 
-                if (_currentFormat.DataFormats == null)
-                    _currentFormat.DataFormats = new List<ItemDataFormat>();
+                        if (_currentFormat.DataFormats == null)
+                            _currentFormat.DataFormats = new List<ItemDataFormat>();
 
-                ItemDataFormat idf = new ItemDataFormat();
-                idf.ModifyStatus = dr.RowState == DataRowState.Added ? 
-                                             BaseEntityStatus.NewEntity : dr.RowState == DataRowState.Deleted ?
-                                             BaseEntityStatus.Deleted 
-                                             : BaseEntityStatus.Modefied;
+                        ItemDataFormat idf = new ItemDataFormat();
+                        idf.ModifyStatus = dr.RowState == DataRowState.Added ? 
+                                                     BaseEntityStatus.NewEntity : dr.RowState == DataRowState.Deleted ?
+                                                     BaseEntityStatus.Deleted 
+                                                     : BaseEntityStatus.Modefied;
 
-                idf.ParentId = _currentFormat.Id;
-                idf.Parent = _currentFormat;
+                        idf.ParentId = _currentFormat.Id;
+                        idf.Parent = _currentFormat;
 
-                if (dr[5] != null && dr[5].GetType() != typeof(DBNull))
-                    idf.ColInfoId = (int)dr[5];
-                else idf.ColInfoId = 0;
-                if (dr[5] != null && dr[5].GetType() != typeof(DBNull))
-                    idf.ColIndex = (int)dr[5];
-                else idf.ColIndex = 0;
+                        if (dr[5] != null && dr[5].GetType() != typeof(DBNull))
+                            idf.ColInfoId = (int)dr[5];
+                        else idf.ColInfoId = 0;
+                        if (dr[5] != null && dr[5].GetType() != typeof(DBNull))
+                            idf.ColIndex = (int)dr[5];
+                        else idf.ColIndex = 0;
 
-                _currentFormat.DataFormats.Add(idf);
-            }
+                        _currentFormat.DataFormats.Add(idf);
+                    }
 
-            return true;
-        }
+                    return true;
+                }
+                */
 
         #region 处理点击事件
         private void dgvFormat_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -345,13 +387,13 @@ namespace BigData.JW.UI.WinForm
                 return;
 
             ComboBox cb = sender as ComboBox;
-            var dv = cb.Items[e.Index] as DataValue;      
-            
-            if (SelectedIndexList.FindIndex(x => x == dv.Id) != -1)
-            {                
-                e.Graphics.DrawString(dv.Name, Font, Brushes.LightGray, e.Bounds);
-            }
-            else
+            var dv = cb.Items[e.Index] as DataValue;
+
+            //if (SelectedIndexList.FindIndex(x => x == dv.Id) != -1)
+            //{                
+            //    e.Graphics.DrawString(dv.Name, Font, Brushes.LightGray, e.Bounds);
+            //}
+            //else
             {
                 e.DrawBackground();
 
@@ -385,10 +427,10 @@ namespace BigData.JW.UI.WinForm
         {
             System.Windows.Forms.ComboBox cb = (System.Windows.Forms.ComboBox)sender;
             
-            if (cb.SelectedValue != null && cb.SelectedValue.GetType() == typeof(int) &&SelectedIndexList?.FindIndex(x => x == (int)cb.SelectedValue) != -1)
-            {
-                cb.SelectedIndex = -1;
-            }
+            //if (cb.SelectedValue != null && cb.SelectedValue.GetType() == typeof(int) &&SelectedIndexList?.FindIndex(x => x == (int)cb.SelectedValue) != -1)
+            //{
+            //    cb.SelectedIndex = -1;
+            //}
 
             if (cb.SelectedIndex > -1 && cb.SelectedValue != null && cb.SelectedValue.ToString() != "System.Data.DataRowView" && cb.SelectedValue.GetType() == typeof(int))
             {
@@ -406,8 +448,8 @@ namespace BigData.JW.UI.WinForm
                     //SelectedIndexList.Add((int)cb.SelectedValue);
                     //dgvFormat.CurrentRow.Tag = dv;
 
-                    GetTabValue();
-                    SelectedIndexList.Add((int)cb.SelectedValue);
+                    //GetTabValue();
+                    //SelectedIndexList.Add((int)cb.SelectedValue);
                 }
 
                 //if (isBind)
@@ -421,13 +463,13 @@ namespace BigData.JW.UI.WinForm
 
         private void GetTabValue()
         {
-            SelectedIndexList.Clear();
-            foreach (DataGridViewRow dr in dgvFormat.Rows)
-            {
-                var dc = dr.Cells[1] as DataGridViewComboBoxCell;
-                if (dc.Value != null &&  dc.Value.GetType() != typeof(DBNull))
-                    SelectedIndexList.Add((int)dc.Value);
-            }
+            //SelectedIndexList.Clear();
+            //foreach (DataGridViewRow dr in dgvFormat.Rows)
+            //{
+            //    var dc = dr.Cells[1] as DataGridViewComboBoxCell;
+            //    if (dc.Value != null &&  dc.Value.GetType() != typeof(DBNull))
+            //        SelectedIndexList.Add((int)dc.Value);
+            //}
         }
 
         #endregion
@@ -444,13 +486,22 @@ namespace BigData.JW.UI.WinForm
 
         private void tbStartPos_TextChanged(object sender, EventArgs e)
         {
-            if (_currentFormat != null)
-                this._currentFormat.ModifyStatus = BaseEntityStatus.Modefied;
+            //if (_currentFormat != null)
+            //    this._currentFormat.ModifyStatus = BaseEntityStatus.Modefied;
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void ClearData()
+        {
+            //dgvFormat.Rows.Clear();
+            dgvFormat.DataSource = null;
+
+            tbStartPos.Text = "";
+        }
+
     }
 }

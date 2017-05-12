@@ -26,9 +26,9 @@ namespace 审批时间修改.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public string Org {
             get {
-                return ((string)(this["Setting"]));
+                return ((string)(this["Org"]));
             }
         }
     }

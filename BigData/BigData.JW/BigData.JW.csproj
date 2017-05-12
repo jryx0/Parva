@@ -83,6 +83,7 @@
     <Compile Include="Infrastructure\Implementation\Repository\EntityFramework\Mappling\CompareRule\CompareRuleMap.cs" />
     <Compile Include="Infrastructure\Implementation\Repository\EntityFramework\Mappling\CompareTask\CompareTaskMap.cs" />
     <Compile Include="Infrastructure\Implementation\Repository\SystemData\Mapping\CompareItemObject.cs" />
+    <Compile Include="Infrastructure\Implementation\Repository\SystemData\Mapping\ItemDataFormatObject.cs" />
     <Compile Include="Infrastructure\Implementation\Repository\SystemData\Mapping\ItemFormatObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

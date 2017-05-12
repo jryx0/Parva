@@ -15,6 +15,8 @@ namespace BigData.JW.Models
         public int? ColInfoId { set; get; }
         public DataValue ColInfo { set; get; }        
         public int ColIndex { set; get; }
+
+        public bool hasModified;
     }
 
     public class ItemFormat : RowVersionEntity

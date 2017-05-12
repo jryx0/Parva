@@ -25,15 +25,15 @@ namespace BigData.JW.Services
             var entities = _masterService.Find(x => masterCondition.Compile().Invoke(x));
 
             if (express != null)
-            {  
+            {
                 var Ids = entities.Select(x => x.Id);
                 var detaillist = _detailService.FindByParentId(Ids);
-
-                entities.ToList().ForEach(x =>
-                                    {
-                                        var list = express.Compile().Invoke(x);
-                                        list = detaillist.Where(y => x.Id == detailCondition.Compile().Invoke(y));
-                                    });
+                if (detaillist != null)
+                    entities.ToList().ForEach(x =>
+                                        {
+                                            var list = express.Compile().Invoke(x);
+                                            list = detaillist.Where(y => x.Id == detailCondition.Compile().Invoke(y));
+                                        });
             }
 
             return entities;
